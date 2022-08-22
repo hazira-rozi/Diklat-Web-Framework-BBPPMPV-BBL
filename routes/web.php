@@ -1,5 +1,6 @@
 <?php
 use App\Models\Siswa;
+use App\Models\Guru;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,10 +28,13 @@ Route::get('/about', function(){
 Route::get('/contacts', function(){
     return view('contacts', ["title"=>"Contacts", "sitemap"=>'Help']);
 });
-
+/*Route Guru*/
 Route::get('/guru', function(){
-    return view('guru.index', ["title"=>"Home", "sitemap"=>'Guru']);
+    $data_guru = Guru::paginate('10');
+    return view('guru.index', ["data_guru"=> $data_guru,
+                                "title"=>"Home", "sitemap"=>'Guru']);
 });
+/*Akhir Route Siswa*/
 /*Route Siswa*/
 Route::get('/siswa', function(){
     $data_siswa = Siswa::paginate('10');
