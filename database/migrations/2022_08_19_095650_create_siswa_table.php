@@ -17,7 +17,6 @@ class CreateSiswaTable extends Migration
             $table->id();
             $table->string('nis')->unique();
             $table->string('nama');
-            $table->string('agama');
             $table->timestamps();
         });
     }

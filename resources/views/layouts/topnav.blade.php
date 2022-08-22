@@ -40,7 +40,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Left navbar links -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a href="home" class="nav-link">Home</a>
+              <a href="dashboard" class="nav-link">Dashboard</a>
             </li>
             <li class="nav-item">
               <a href="gallery" class="nav-link">Gallery</a>
@@ -50,32 +50,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                 <li><a href="about" class="dropdown-item">About </a></li>
                 <li><a href="contacts" class="dropdown-item">Contact Us!</a></li>
-
-                <li class="dropdown-divider"></li>
-
-                <!-- Level two dropdown-->
-                <li class="dropdown-submenu dropdown-hover">
-                  <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
-                  <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                    <li>
-                      <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
-                    </li>
-
-                    <!-- Level three dropdown-->
-                    <li class="dropdown-submenu">
-                      <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
-                      <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
-                        <li><a href="#" class="dropdown-item">3rd level</a></li>
-                        <li><a href="#" class="dropdown-item">3rd level</a></li>
-                      </ul>
-                    </li>
-                    <!-- End Level three -->
-
-                    <li><a href="#" class="dropdown-item">level 2</a></li>
-                    <li><a href="#" class="dropdown-item">level 2</a></li>
-                  </ul>
-                </li>
-                <!-- End Level two -->
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Data</a>
+              <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                <li><a href="guru" class="dropdown-item">Guru </a></li>
+                <li><a href="siswa" class="dropdown-item">Siswa</a></li>
               </ul>
             </li>
           </ul>
@@ -190,33 +171,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </nav>
     <!-- /.navbar -->
 
-     <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-          <h1 class="m-0"> Halaman <small>{{$title}}</small></h1>
-            
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item active"><a href="#">{{ $sitemap }}</a></li>
-              <li class="breadcrumb-item active">{{$title}}</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0"><small>Halaman {{$title}}</small></h1>
 
-    <!-- Main content -->
-    <div class="content">
-      <div class="container">
-        <div class="row">
-          
-          @yield('content')
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item active"><a href="{{ URL::current(); }}">{{ $sitemap }}</a></li>
+                <li class="breadcrumb-item active">{{$title}}</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <div class="content">
+        <div class="container">
+          <div class="row">
+            @yield('content')
           </div>
           <!-- /.col-md-6 -->
         </div>
@@ -227,22 +207,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
   <!-- /.content-wrapper -->
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
 
 
-    <!-- Main Footer -->
-    <footer class="main-footer">
-      <!-- To the right -->
-      <div class="float-right d-none d-sm-inline">
-        Diklat Pengembangan Web Berbasis Framework Angkatan V
-      </div>
-      <!-- Default to the left -->
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> BBPPMPVBBL &copy; 2022.
-    </footer>
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      Diklat Pengembangan Web Berbasis Framework Angkatan V
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> BBPPMPVBBL &copy; 2022.
+  </footer>
   </div>
   <!-- ./wrapper -->
 

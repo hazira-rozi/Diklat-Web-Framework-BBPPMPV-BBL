@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\Siswa;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index', ["title"=>"Home" ,  "sitemap"=>'Main']);
-});
-
-Route::get('/home', function(){
-    return view('index' , ["title"=>"Home" ,  "sitemap"=>'Main']);
+    return view('dashboard', ["title"=>"Dashboard" ,  "sitemap"=>'Dashboard']);
 });
 
 Route::get('/gallery', function(){
@@ -35,7 +31,16 @@ Route::get('/contacts', function(){
 Route::get('/guru', function(){
     return view('guru.index', ["title"=>"Home", "sitemap"=>'Guru']);
 });
-
+/*Route Siswa*/
 Route::get('/siswa', function(){
-    return view('siswa.index', ["title"=>"Home", "sitemap"=>'Siswa']);
+    $data_siswa = Siswa::paginate('10');
+    return view('siswa.index', ["data_siswa"=> $data_siswa,
+                                "title"=>"Home", 
+                                "sitemap"=>'Siswa']);
+});
+/*Akhir Route Siswa*/
+
+
+Route::get('/dashboard', function(){
+    return view('dashboard', ["title"=>"Dashboard", "sitemap"=>'Dashboard']);
 });
