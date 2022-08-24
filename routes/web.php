@@ -1,6 +1,9 @@
 <?php
-use App\Models\Siswa;
-use App\Models\Guru;
+
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,37 +17,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard', ["title"=>"Dashboard" ,  "sitemap"=>'Dashboard']);
-});
-
-Route::get('/gallery', function(){
-    return view('gallery' , ["title"=>"Gallery" ,  "sitemap"=>'Gallery']);
-});
-
-Route::get('/about', function(){
-    return view('about', ["title"=>"About" , "sitemap"=>'Help']);
-});
-Route::get('/contacts', function(){
-    return view('contacts', ["title"=>"Contacts", "sitemap"=>'Help']);
-});
+Route::get('/', [SiteController::class, 'dashboard']);
+Route::get('/dashboard', [SiteController::class, 'dashboard']);
+Route::get('/about', [SiteController::class, 'about']);
+Route::get('/contacts', [SiteController::class, 'contacts']);
+Route::get('/gallery', [SiteController::class, 'gallery']);
 /*Route Guru*/
-Route::get('/guru', function(){
-    $data_guru = Guru::paginate('10');
-    return view('guru.index', ["data_guru"=> $data_guru,
-                                "title"=>"Home", "sitemap"=>'Guru']);
-});
-/*Akhir Route Siswa*/
+Route::resource('/guru', GuruController::class);
+/*Akhir Route Guru*/
+
+/*Route Login Auth*/
+Route::get('/login', [LoginController::class, 'index']);
+Route::post('/do_login', [LoginController::class, 'authenticate'])->name('do.login');
+Route::get('/logout', [LoginController::class, 'logout']);
+/*Akhir Route Guru*/
+
+
 /*Route Siswa*/
-Route::get('/siswa', function(){
-    $data_siswa = Siswa::paginate('10');
-    return view('siswa.index', ["data_siswa"=> $data_siswa,
-                                "title"=>"Home", 
-                                "sitemap"=>'Siswa']);
-});
+Route::resource('/siswa', SiswaController::class);
 /*Akhir Route Siswa*/
 
+// /*Route Site*/
+// Route::resource('/siswa', SiswaController::class);
+// /*Akhir Route Siswa*/
 
-Route::get('/dashboard', function(){
-    return view('dashboard', ["title"=>"Dashboard", "sitemap"=>'Dashboard']);
-});

@@ -4,6 +4,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Daftar Siswa</h3>
+            <a class="btn btn-sm btn-primary float-right" href="{{ route('siswa.create') }}">Add Data <i class="fa fa-plus"></i></a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -19,18 +20,27 @@
                 <tbody>
                     @foreach ($data_siswa as $siswa)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ ++$i }}</td>
                         <td>{{ $siswa->nis }}</td>
                         <td>{{ $siswa->nama }}</td>
                         <td class="text-center">
-                            <a class="btn btn-sm btn-primary" href="#">View</a>
-                            <a class="btn btn-sm btn-success" href="#">Update</a>
-                            <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                            <form action="{{ route('siswa.destroy' ,$siswa->id)}}" method="post">
+                                @csrf
+                                <a class="btn btn-sm btn-primary" href="{{ route('siswa.show',$siswa->id) }}">View <i class="fa fa-eye"></i></a>
+                                <a class="btn btn-sm btn-success" href="{{ route('siswa.edit',$siswa->id) }}">Edit <i class="fa fa-edit"></i></a>
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus siswa {{$siswa->nama}}?')">Delete <i class="fa fa-trash"></i></button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+            <div class="card-footer clearfix">
+                <div class="d-flex justify-content-center">
+                    Showing {{($data_siswa->currentpage()-1)*$data_siswa->perpage()+1}} to {{ $data_siswa->currentpage()*(($data_siswa->perpage() < $data_siswa->total()) ? $data_siswa->perpage(): $data_siswa->total())}} of {{ $data_siswa->total()}} entries</div>
+                <div class="d-flex justify-content-center">{!! $data_siswa->links() !!}</div>
+            </div>
         </div>
         <!-- /.card-body -->
     </div>
