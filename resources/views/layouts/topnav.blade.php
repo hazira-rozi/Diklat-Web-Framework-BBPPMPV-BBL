@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
       <div class="container">
-        <a href="home" class="navbar-brand">
+        <a href="{{ route('/') }}" class="navbar-brand">
           <img src="{{asset('dist/img/BBPPMPVBBL.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">Diklat Web Framework Laravel</span>
         </a>
@@ -58,8 +58,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="nav-item dropdown">
               <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Help</a>
               <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                <li><a href="about" class="dropdown-item">About </a></li>
-                <li><a href="contacts" class="dropdown-item">Contact Us!</a></li>
+                <li><a href="{{ route('about') }}" class="dropdown-item">About </a></li>
+                <li><a href="{{ route('contacts') }}" class="dropdown-item">Contact Us!</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -67,6 +67,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                 <li><a href="{{ route('guru.index') }}" class="dropdown-item">Guru </a></li>
                 <li><a href="{{ route('siswa.index') }}" class="dropdown-item">Siswa</a></li>
+                <li><a href="{{ route('user.index') }}" class="dropdown-item">User</a></li>
               </ul>
             </li>
           </ul>
@@ -96,7 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           @else
           <li class="nav-item">
-              <a href="login" class="nav-link">Login</a>
+              <a href="{{ route('login')}}" class="nav-link">Login</a>
             </li>
         @endauth
         </ul>
@@ -170,12 +171,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
   <!-- Toastr -->
   <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+  <!-- bs custom-file-input -->
+  <script src="{{asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
   <!-- AdminLTE App -->
   <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
   <!-- AdminLTE for demo purposes -->
   <!-- <script src="{{asset('dist/js/demo.js')}}"></script> -->
 
-
+<script>
+  $(function(){
+    bsCustomFileInput.init();
+  });
+</script>
 </body>
 
 </html>

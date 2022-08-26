@@ -10,9 +10,9 @@ class SiteController extends Controller
     public function index(){
         return view('dashboard', ["title"=>"Dashboard", "sitemap"=>'Main']);
     }
-    public function dashboard(){
-        return view('dashboard', ["title"=>"Dashboard", "sitemap"=>'Main']);
-    }
+    // public function dashboard(){
+    //     return view('dashboard', ["title"=>"Dashboard", "sitemap"=>'Main']);
+    // }
 
     public function about(){
         return view('about', ["title"=>"About", "sitemap"=>'Help']);

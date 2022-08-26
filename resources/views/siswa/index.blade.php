@@ -14,6 +14,8 @@
                         <th style="width: 10px">#</th>
                         <th class="text-center">NIS</th>
                         <th class="text-center">Nama Siswa</th>
+                        <th class="text-center">Tingkat</th>
+                        <th class="text-center">Foto</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -23,6 +25,8 @@
                         <td>{{ ++$i }}</td>
                         <td>{{ $siswa->nis }}</td>
                         <td>{{ $siswa->nama }}</td>
+                        <td>{{ $siswa->tingkat->kelas }}</td>
+                        <td><img alt="Avatar" class="table-avatar img-thumbnail" style="height: 150px;" src="{{ asset('storage/'.$siswa->gambar) }}"></td>
                         <td class="text-center">
                             <form action="{{ route('siswa.destroy' ,$siswa->id)}}" method="post">
                                 @csrf

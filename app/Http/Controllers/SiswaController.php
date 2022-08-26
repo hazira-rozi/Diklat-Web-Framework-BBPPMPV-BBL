@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
 
+
+
+//add
+use App\Models\Tingkat;
+use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\Input;
+
 class SiswaController extends Controller
 {
     /**
@@ -19,7 +28,7 @@ class SiswaController extends Controller
             "data_siswa" => $data_siswa,
             "title" => "Home",
             "sitemap" => 'Siswa',
-        ])->with ('i', (request()->input('page',1)-1)*10);
+        ])->with('i', (request()->input('page', 1) - 1) * 10);
         //
     }
 
@@ -30,7 +39,14 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        return view('siswa.create', ["title"=>"Add Siswa", "sitemap"=>'Siswa']);
+        //add
+        $tingkat_siswa = Tingkat::all();
+
+        return view('siswa.create', [
+            "title" => "Add Siswa", "sitemap" => 'Siswa',
+            //add 
+            "tingkat_siswa" => $tingkat_siswa
+        ]);
     }
 
     /**
@@ -41,15 +57,28 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data_validasi=$request->validate([
             "nis"   => 'required',
-            "nama"  => 'required'
+            "nama"  => 'required',
+
+            //tambahkan code untuk tingkat id dan gambar
+            "tingkat_id" => 'required',
+            "gambar"     => 'image'
+
         ]);
 
-        Siswa::create($request->all());
+        if ($request->oldImage) {
+            Storage::delete($request->oldImage);
+        }
+        
+            $data_validasi['gambar']=$request->file('gambar')->store('images-siswa');
+        
+        Siswa::create($data_validasi); //memanggil model yang akan dimanipulasi
 
-        return redirect()->route('siswa.index',["title"=>"Data Siswa", 
-                                                "sitemap"=>"Siswa"])->with('success','Data berhasil ditambahkan');
+        return redirect()->route('siswa.index', [
+            "title" => "Data Siswa",
+            "sitemap" => "Siswa"
+        ])->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -63,8 +92,8 @@ class SiswaController extends Controller
         $siswa = Siswa::find($id);
         return view('siswa.show', [
             "siswa" => $siswa,
-            "title"=>"Data Siswa",
-            "sitemap"=>"Lihat Data Siswa"
+            "title" => "Data Siswa",
+            "sitemap" => "Lihat Data Siswa"
         ]);
     }
 
@@ -77,10 +106,13 @@ class SiswaController extends Controller
     public function edit($id)
     {
         $siswa = Siswa::find($id);
-        return view('siswa.edit',[
+        //tambah code 
+        $tingkat_siswa = Tingkat::all();
+        return view('siswa.edit', [
             "siswa" => $siswa,
-            "title"=>"Edit Data Siswa",
-            "sitemap"=>"Edit Data Siswa"
+            "title" => "Edit Data Siswa",
+            "sitemap" => "Edit Data Siswa",
+            "tingkat_siswa" => $tingkat_siswa
         ]);
     }
 
@@ -93,14 +125,24 @@ class SiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $data_validasi=$request->validate([
             "nis"   => 'required',
-            "nama"  => 'required'
+            "nama"  => 'required',
+            //tambahkan
+            "tingkat_id" => 'required',
+            "gambar" => 'required'
         ]);
+
+        if($request->oldImage){
+            Storage::delete($request->oldImage);
+        }
+        $data_validasi['gambar'] = $request->file('gambar')->store('images-siswa');
         $siswa = Siswa::find($id);
-        $siswa->update($request->all());
-        return redirect()->route('siswa.index',["title"=>"Data Siswa", 
-                                                "sitemap"=>"Siswa"])->with('success','Data berhasil diperbaharui');
+        $siswa->update($data_validasi);
+        return redirect()->route('siswa.index', [
+            "title" => "Data Siswa",
+            "sitemap" =>"Siswa"
+        ])->with('success', 'Data berhasil diperbaharui');
     }
 
     /**
@@ -112,9 +154,15 @@ class SiswaController extends Controller
     public function destroy($id)
     {
         $siswa = Siswa::find($id);
+
+        //menghapus gambar yang terkait dengan siswa
+        Storage::delete($siswa->gambar);
+
         $siswa->delete();
 
-        return redirect()->route('siswa.index',["title"=>"Data Siswa", 
-        "sitemap"=>"Siswa"])->with('success','Data berhasil dihapus');
+        return redirect()->route('siswa.index', [
+            "title" => "Data Siswa",
+            "sitemap" => "Siswa"
+        ])->with('success', 'Data berhasil dihapus');
     }
 }

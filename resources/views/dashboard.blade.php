@@ -7,7 +7,7 @@
             <h3>
                 Siswa
                 <div class="btn-group float-right">
-                    <a class="btn btn-sm btn-primary" href="siswa/new">Add <i class="fa fa-plus"></i></a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('siswa.create') }}">Add <i class="fa fa-plus"></i></a>
                 </div>
             </h3>
         </div>
@@ -16,7 +16,7 @@
 
             <p class="card-text">
                 isi mengenai siswa<br/>
-                <a class="btn btn-sm btn-primary" href="siswa">LIhat Data Siswa <i class="fa fa-eye"></i></a>
+                <a class="btn btn-sm btn-primary" href="{{ route('siswa.index') }}">LIhat Data Siswa <i class="fa fa-eye"></i></a>
             </p>
         </div>
     </div><!-- /.card -->
@@ -26,7 +26,7 @@
             <h3>
                 Guru
                 <div class="btn-group float-right">
-                    <a class="btn btn-primary" href="guru/new">Add <i class="fa fa-plus"></i></a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('guru.create') }}">Add <i class="fa fa-plus"></i></a>
                 </div>
             </h3>
         </div>
